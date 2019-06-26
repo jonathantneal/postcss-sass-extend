@@ -1,8 +1,6 @@
 var postcss = require('postcss');
 
-module.exports = postcss.plugin('postcss-sass-extend', function (opts) {
-	opts = opts || {};
-
+module.exports = postcss.plugin('postcss-sass-extend', function () {
 	var placeholderClass = /^%[A-z][\w-]*$/;
 
 	function each(parent) {
@@ -33,7 +31,7 @@ module.exports = postcss.plugin('postcss-sass-extend', function (opts) {
 
 			if (placeholder && parent.type === 'rule') addPlaceholderSelector(placeholder, parent.selector);
 
-			node.removeSelf();
+			node.remove();
 
 			--index;
 		}
@@ -57,7 +55,7 @@ module.exports = postcss.plugin('postcss-sass-extend', function (opts) {
 				if (!placeholder.selector) {
 					--index;
 
-					placeholder.removeSelf();
+					placeholder.remove();
 				}
 			});
 		}
